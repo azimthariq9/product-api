@@ -32,3 +32,12 @@ def update_product(product_id: int, updated: Product):
             return {"message": "Produk berhasil diupdate", "data": products[i]}
     raise HTTPException(status_code=404, detail="Produk tidak ditemukan")
 
+@app.delete("/products/{product_id}")
+def delete_product(product_id: int):
+    for p in products:
+        if p.id == product_id:
+            products.remove(p)
+            return {"message": "Produk berhasil dihapus"}
+    raise HTTPException(status_code=404, detail="Produk tidak ditemukan")
+
+
