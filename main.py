@@ -24,6 +24,11 @@ def add_product(product: Product):
 def update_product(product_id: int, updated: Product):
     for i, p in enumerate(products):
         if p.id == product_id:
-            products[i] = updated
-            return updated
+            products[i] = Product(
+                id=product_id,
+                name=updated.name,
+                price=updated.price
+            )
+            return {"message": "Produk berhasil diupdate", "data": products[i]}
     raise HTTPException(status_code=404, detail="Produk tidak ditemukan")
+
