@@ -14,3 +14,8 @@ products: List[Product] = []
 @app.get("/products")
 def list_products():
     return products
+
+@app.post("/products")
+def add_product(product: Product):
+    products.append(product)
+    return product
