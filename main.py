@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 
@@ -19,3 +19,11 @@ def list_products():
 def add_product(product: Product):
     products.append(product)
     return product
+
+@app.put("/products/{product_id}")
+def update_product(product_id: int, updated: Product):
+    for i, p in enumerate(products):
+        if p.id == product_id:
+            products[i] = updated
+            return updated
+    raise HTTPException(status_code=404, detail="Produk tidak ditemukan")
